@@ -51,20 +51,25 @@ int main(int argc, char* argv[])
 #endif
 
 	bool print_line = false;
-	string seq,str;
-	while(cin >> seq >> str)
+	while(1)
 	{
-	//string seq; cin >> seq;// = argv[1];
-	//string str; cin >> str;// = argv[2];
+	string seq; cin >> seq;// = argv[1];
+	string str; cin >> str;// = argv[2];
 	string_subsequence obj(seq, str);
 	bool result = obj.is_sub_sequence();
 
 	//if(print_line == true) 	cout<<"\n";
 
 	if(result)
-		cout<<"Yes" << endl;
+		if(print_line == true)
+			cout<<"\nYes";//cout << "\n Yes, subsequence is found\n";
+		else
+			cout<<"Yes";
 	else
-		cout<<"No" << endl;
+		if(print_line == true)
+			cout<<"\nNo";
+		else
+			cout<<"No";//cout << "\n No, subsequence is not found\n";
 
 	print_line = true;
 	}
