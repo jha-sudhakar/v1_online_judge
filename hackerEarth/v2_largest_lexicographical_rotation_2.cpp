@@ -33,27 +33,6 @@ string Max_Str_Rotation::find_largest_lexicographical_rotation()
             mylist.push_back(i);
     }
 
-	if(mylist.size() > 1)
-	{
-		std::list<unsigned int>::iterator it=mylist.begin();
-		unsigned int prev_pos = *it; it++;
-		unsigned int index = 1;
-		for (; it != mylist.end(); )
-		{
-			unsigned int pos =  *it;
-			if (prev_pos+index == pos)
-			{
-				it = mylist.erase (it);
-				index++;
-			}
-			else
-			{
-				it++;
-				index = 1;
-			}
-	     }
-	}
-
 	for(unsigned int count=1; count < str.size(); count++)
 	{
 
