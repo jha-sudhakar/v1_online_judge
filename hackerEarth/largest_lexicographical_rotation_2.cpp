@@ -64,6 +64,7 @@ string Max_Str_Rotation::find_largest_lexicographical_rotation()
 
 		// Find index of max among all the indicies in the list.
 		unsigned int max_val = str[count+ mylist.front()];
+		unsigned int no_of_max_val = 0;
 		for (std::list<unsigned int>::iterator it=mylist.begin(); it != mylist.end(); ++it)
 		{
 		    unsigned int pos =  *it;
@@ -71,9 +72,15 @@ string Max_Str_Rotation::find_largest_lexicographical_rotation()
 			if(max_val < str[arr_index])
 			{
 				max_val = str[arr_index];
-			} 
+			}
+			else
+			{
+				no_of_max_val++;
+			}
 		}
 		
+		if(no_of_max_val != mylist.size())
+		{
 		for (std::list<unsigned int>::iterator it=mylist.begin(); it != mylist.end(); )
 		{
 			unsigned int pos =  *it;
@@ -87,6 +94,9 @@ string Max_Str_Rotation::find_largest_lexicographical_rotation()
 				it++;
 			}
 		}
+		}
+
+
 	}
 
 	//cout<<"\n Original str  = " << str;
