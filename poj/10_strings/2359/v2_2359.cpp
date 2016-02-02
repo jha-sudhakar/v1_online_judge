@@ -54,6 +54,9 @@ string Question::findAnswer()
 	std::list<char>::iterator it = que.begin();
 	while(que.size() > 1)
 	{
+
+		printInput();
+
 		for(int n=0; n<N-1; n++)
 		{
 			it++;
