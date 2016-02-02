@@ -13,7 +13,6 @@ class Question
 		void readInput(string& _arg);
 		string findAnswer();
 		Question(string& _arg, const int _N=1999);
-		Question(const int _N=1999);
 		void printInput();
 };
 
@@ -25,10 +24,6 @@ void Question::readInput(string& _arg)
 	}
 }
 
-Question::Question(const int _N):N(_N)
-{
-
-}
 
 Question::Question(string& _arg,const int _N): N(_N)
 {
@@ -68,7 +63,7 @@ string Question::findAnswer()
 
 	it = que.begin();// As one char is left.
 
-	//cout<< "\n Last char left is " << (*it) << endl;
+	cout<< "\n Last char left is " << (*it) << endl;
 	string end_val = "? ";
 	if(*it == end_val[0])
 		return "Yes";
@@ -82,16 +77,14 @@ string Question::findAnswer()
 int main()
 {
 string in_arg;
-Question obj1;
 while(getline(cin, in_arg))
 {
-//Question obj1(in_arg);
-obj1.readInput(in_arg);//obj1.printInput();
-//cout<< obj1.findAnswer() << endl;
+Question obj1(in_arg);
+obj1.printInput();
+cout<< obj1.findAnswer() << endl;
 
 }
 
-cout<< obj1.findAnswer() << endl;
 return 0;
 }
 

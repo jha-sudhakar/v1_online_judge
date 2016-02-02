@@ -68,7 +68,7 @@ string Question::findAnswer()
 
 	it = que.begin();// As one char is left.
 
-	//cout<< "\n Last char left is " << (*it) << endl;
+	cout<< "\n Last char left is " << (*it) << endl;
 	string end_val = "? ";
 	if(*it == end_val[0])
 		return "Yes";
