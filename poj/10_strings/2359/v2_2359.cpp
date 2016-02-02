@@ -2,7 +2,7 @@
 #include <list>
 #include <iostream>
 using namespace std;
-
+#define V 4
 
 class Question
 {
@@ -12,8 +12,8 @@ class Question
 	public:
 		void readInput(string& _arg);
 		string findAnswer();
-		Question(string& _arg, const int _N=1999);
-		Question(const int _N=1999);
+		Question(string& _arg, const int _N=V);
+		Question(const int _N=V);
 		void printInput();
 };
 
