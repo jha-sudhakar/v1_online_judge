@@ -45,29 +45,75 @@ string IDNumberVerification::verify(string id, string[] regionCodes)
 		return "Invalid";
 	}
 
-	if(!(dob[4] == '0' && (dob[5]>= '1' && dob[5] <='9')))
+	for(int i=10; i<14; i++)
 	{
-		cout<<"\n Month is invalid";
-		return "Invalid";
-	} else if (!(dob[4] == '1'&& (dob[5] >= '1' && dob[5] <= '2')))
-		cout<<"\n Month_B is invalid";
+		if(id[i] <'0' || id[i] > '9')
+		{
+			cout<<"\n Month-date is invalid, index[" <<i <<"]= " << id[i];
+			return "Invalid";
+		}
+	}	
+
+	int month =  (num %10000) / 100;
+	if(month <1 || month > 12)
+	{
+		cout<<"\n Month is invalid, val= " << month;
 		return "Invalid";
 	}
 
-    if(!(dob[6] == '0' && (dob[7]>= '1' && dob[7] <='9')))
-    {
-        cout<<"\n Day is invalid";
-        return "Invalid";
-    } else if (!((dob[6] == '1' || dob[6] == '2')&& (dob[7] >= '0' && dob[7] <= '9')))
-        cout<<"\n Day_B is invalid";
-        return "Invalid";
-    } else if (!(dob[6] == '3' && (dob[7]>= '0' && dob[7] <='1')))
+	int day = num%100;
+	if(day<1 || day > 31)
 	{
-        cout<<"\n Day_C is invalid";
-        return "Invalid";
+		cout<<"\n Day is invalid, val= " << day;
+		return "Invalid";
 	}
 
-	
+	// Validate for leap year.
+	if(month == 2)
+	{
+		if((year%400 == 0) || (year%4 == 0 && year%100 != 0))
+		{
+			if(day > 29)
+			{
+				cout<<"\n day " << day <<"  is not matching for feb leap year " << year;
+				return "Invalid";
+			}
+		} 
+		else
+		{
+            if(day > 28)
+            {
+                cout<<"\n day " << day <<"  is not matching for feb year " << year;
+                return "Invalid";
+            }
+		}
+	}
+
+	// Validate for 30, 31 and 28 days.
+	if((day == 31) && !(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12))
+	{	
+		cout<<"\n Validated months for 31 days";
+		return "Invalid";
+	}
+
+
+	 string code = id.substr(14,3);
+	 int code_num = atoi(code.c_str());
+	 if(code_num == 0)
+	 {
+		cout<<"\n code is invalid";
+		return "Invalid";
+	 }
+
+	int multiplyer = 217;
+	unsigned int val=0;
+	for(int i=0; i<17; i++)
+	{
+		val += multiplyer*(id[i] - 48);
+		multiplyer--;
+	}
+	val = val%11;
+	int x= 10-val;
 
 }
 int main()
