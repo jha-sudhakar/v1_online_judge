@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <iostream>
 using namespace std;
 
@@ -7,21 +8,27 @@ class IDNumberVerification
 
 
 public:
-	string verify(string id, string[] regionCodes);
+	string verify(string id, string regionCodes[]);
 
 };
 
-string IDNumberVerification::verify(string id, string[] regionCodes)
+string IDNumberVerification::verify(string id, string regionCodes[])
 {
-		   012345-6789-10111213-  	
+	//	   012345-6789-10111213-  	
 	//id = RRRRRR-YYYY M M D D - zzz-x
 
-	int length_of_code = sizeof(regionCodes/regionCodes[0]);
+	int length_of_code = sizeof(regionCodes) / sizeof(regionCodes[0]);
+	cout<<"\n Id= " << id;
+	cout<<"\n Region-code= ";
+	for(int kk=0; kk < length_of_code; kk++)
+		cout<<" " << regionCodes[kk];
+	cout<<endl;
+
+	bool region_code_match = false;
 	// 1. Validate region code.
 	for(int i=0; i<length_of_code; i++)
 	{
-		bool region_code_match = false;
-		if(0 == id.compare(0,6, regionCodes[i])
+		if(0 == id.compare(0,6, regionCodes[i]))
 		{
 			region_code_match = true;
 			cout<<"\n Matches with region code= " << regionCodes[i];
@@ -35,7 +42,7 @@ string IDNumberVerification::verify(string id, string[] regionCodes)
 
 	//2. Validate DOB
 	string dob = id.substr(6,8);
-	unsigned int num = stoi(dob);
+	unsigned int num = atoi(dob.c_str());
 	cout<<"\n DOB= " << dob <<", dob-num= " << num;
 
 	int year = num/10000;
@@ -105,20 +112,56 @@ string IDNumberVerification::verify(string id, string[] regionCodes)
 		return "Invalid";
 	 }
 
-	int multiplyer = 217;
-	unsigned int val=0;
+	int multiplyer = 17;
+	unsigned long val=0;
 	for(int i=0; i<17; i++)
 	{
-		val += multiplyer*(id[i] - 48);
+		int tmp = 1+ multiplyer/10;
+		int tmp2 = 0;
+		if(tmp == 2)
+			tmp2 = 200+multiplyer;
+		else
+			tmp2 = 20+multiplyer;
+
+		cout<<"\n Multiplyer = " << tmp2 << ", id[" <<i+1 <<"]= " << (id[i]-48);
+
+		unsigned long tmp3 = (tmp2*(id[i] - 48));		
+		val += tmp3;;
 		multiplyer--;
 	}
-	val = val%11;
-	int x= 10-val;
 
+	int x=0;
+	val = val%11;
+	cout<<"\n Reminder= " << val;
+	if(val == 1) 
+		x = 0;
+	else if (val == 0)
+		x = 1;
+	else
+		x = 12-val;
+
+	if((id[17] == 'X' && x !=10) || (x != id[17]-48))
+	{
+		cout<<"\n checksum is not matching, checksum= " << x <<", id[17]= " << ((id[17] == 'X')?'X': id[17]-48);
+		return "Invalid";
+	}
+
+	if(code_num % 2)
+	{
+		return "Male";
+	} else
+	{
+		return "Female";
+	}
 }
+
 int main()
 {
+IDNumberVerification obj1;
 
+//string id1 = "441323200312060636"; string r1[] = {"441323"}; cout<<"\n" << obj1.verify(id1, r1);
+string id2 = "62012319240507058X"; string r2[] = {"620123"}; cout<<"\n" << obj1.verify(id2, r2);
 
+cout<<endl; 
 return 0;
 }
